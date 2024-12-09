@@ -1,0 +1,1006 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MealMap - Hero Banner</title>
+    
+    <style>
+        /* Unique CSS for Hero Banner */
+        .mealmap-hero {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .mealmap-hero .carousel {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            transition: transform 1s ease;
+        }
+
+        .mealmap-hero .carousel img {
+            width: 100%;
+            height: 100vh;
+            object-fit: cover;
+            display: none; /* Hide all images by default */
+        }
+
+        .mealmap-hero .carousel img.active {
+            display: block; /* Only display the active image */
+        }
+
+        .mealmap-hero .hero-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            color: white;
+            z-index: 10;
+            padding: 0 15px;
+        }
+
+        .mealmap-hero .hero-content h1 {
+            font-size: 3em;
+            margin-bottom: 20px;
+        }
+
+        /* Call-to-Action Buttons */
+        .mealmap-hero .hero-content .cta-buttons {
+            margin-top: 20px;
+        }
+
+        .mealmap-hero .hero-content .cta-buttons a {
+            display: inline-block;
+            margin: 10px 15px;
+            padding: 15px 25px;
+            background-color: #f76c6c;
+            color: white;
+            text-decoration: none;
+            font-size: 1.2em;
+            border-radius: 5px;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            box-sizing: border-box;
+        }
+
+        /* Hover effect for CTA buttons */
+        .mealmap-hero .hero-content .cta-buttons a:hover {
+            background-color: #d65a5a;
+            transform: scale(1.1); /* Button size increase on hover */
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .mealmap-hero .hero-content h1 {
+                font-size: 2em;
+            }
+
+            .mealmap-hero .hero-content .cta-buttons a {
+                font-size: 1.1em;
+                padding: 12px 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .mealmap-hero .hero-content h1 {
+                font-size: 1.6em;
+            }
+
+            .mealmap-hero .hero-content .cta-buttons a {
+                font-size: 1em;
+                padding: 10px 15px;
+            }
+        }
+
+        /* Simple carousel controls */
+        .mealmap-hero .carousel-nav {
+            position: absolute;
+            top: 50%;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            z-index: 20;
+        }
+
+        .mealmap-hero .carousel-nav button {
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+        }
+
+        .mealmap-hero .carousel-nav button:hover {
+            background-color: rgba(0, 0, 0, 0.7);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Hero Banner Section -->
+    <div class="mealmap-hero">
+        <!-- Image Carousel -->
+        <div class="carousel">
+            <img src="Meal+1.jpg" alt="Meal 1" class="active">
+            <img src="Meal+2.jpg" alt="Meal 2">
+            <img src="Meal+3.jpg" alt="Meal 3">
+        </div>
+
+        <!-- Hero Content (Text & CTA buttons) -->
+        <div class="hero-content">
+            <h1>Your Ultimate Guide to Balanced Meals and Fitness</h1>
+            <div class="cta-buttons">
+                <a href="#recipes">Explore Recipes</a>
+                <a href="#mealplanner">Plan Your Meals</a>
+                <a href="#bmi">Calculate BMI</a>
+            </div>
+        </div>
+
+        <!-- Carousel Navigation -->
+        <div class="carousel-nav">
+            <button id="prevBtn">❮</button>
+            <button id="nextBtn">❯</button>
+        </div>
+    </div>
+
+    <script>
+        // JavaScript for Carousel functionality
+        const carousel = document.querySelector('.carousel');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const images = document.querySelectorAll('.carousel img');
+        let index = 0;
+
+        // Function to update carousel position
+        function updateCarousel() {
+            // Remove 'active' class from all images
+            images.forEach(img => img.classList.remove('active'));
+
+            // Add 'active' class to the current image
+            images[index].classList.add('active');
+        }
+
+        // Event listener for next and previous buttons
+        nextBtn.addEventListener('click', () => {
+            index = (index + 1) % images.length;
+            updateCarousel();
+        });
+
+        prevBtn.addEventListener('click', () => {
+            index = (index - 1 + images.length) % images.length;
+            updateCarousel();
+        });
+
+        // Automatically change images every 5 seconds
+        setInterval(() => {
+            index = (index + 1) % images.length;
+            updateCarousel();
+        }, 5000); // 5000ms = 5 seconds
+
+        // Adjust the carousel width on window resize
+        window.addEventListener('resize', updateCarousel);
+    </script>
+
+</body>
+</html>
+
+
+
+
+<!-- Fitness Tools Section -->
+<div class="mealmap-fitness-tools">
+    <!-- BMI Calculator -->
+    <div class="fitness-tool">
+        <h3>BMI Calculator</h3>
+        <form>
+            <label for="height">Height (cm):</label>
+            <input type="number" id="height" name="height" placeholder="Enter your height" required>
+            <label for="weight">Weight (kg):</label>
+            <input type="number" id="weight" name="weight" placeholder="Enter your weight" required>
+            <button type="submit" class="cta-button">Calculate BMI</button>
+        </form>
+        <p id="bmi-result">Your BMI will appear here.</p>
+    </div>
+
+    <!-- Fat Rate Estimator -->
+    <div class="fitness-tool">
+        <h3>Fat Rate Estimator</h3>
+        <form>
+            <label for="waist">Waist (cm):</label>
+            <input type="number" id="waist" name="waist" placeholder="Enter waist measurement" required>
+            <label for="hip">Hip (cm):</label>
+            <input type="number" id="hip" name="hip" placeholder="Enter hip measurement" required>
+            <button type="submit" class="cta-button">Estimate Fat Rate</button>
+        </form>
+        <p id="fat-rate-result">Your fat rate will appear here.</p>
+    </div>
+
+    <!-- Health Tips Section -->
+    <div class="fitness-tool">
+        <h3>Health Tips</h3>
+        <div class="health-tips">
+            <p>Tip 1: Drink plenty of water throughout the day to stay hydrated!</p>
+            <p>Tip 2: Include fiber-rich foods for better digestion and energy.</p>
+            <p>Tip 3: Take the stairs instead of the elevator for better fitness.</p>
+            <p>Tip 4: Make time for regular workouts to improve overall health.</p>
+        </div>
+    </div>
+
+   
+<style>
+    /* Unique CSS for Fitness Tools Section */
+    .mealmap-fitness-tools {
+        background-color: #f1f1f1;
+        padding: 50px 20px;
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+    }
+
+    .fitness-tool {
+        background-color: white;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        margin-bottom: 30px;
+        width: 22%;
+        text-align: center;
+        border: 2px solid #e1e1e1;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .fitness-tool:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .fitness-tool h3 {
+        font-size: 1.6em;
+        color: #f76c6c;
+        margin-bottom: 15px;
+    }
+
+    .fitness-tool label {
+        font-size: 1.1em;
+        margin-bottom: 10px;
+        display: block;
+    }
+
+    .fitness-tool input {
+        width: 90%;
+        padding: 10px;
+        margin-bottom: 15px;
+        border-radius: 5px;
+        border: 1px solid #ddd;
+        font-size: 1em;
+    }
+
+    .fitness-tool button {
+        padding: 12px 25px;
+        background-color: #f76c6c;
+        color: white;
+        font-size: 1.1em;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    .fitness-tool button:hover {
+        background-color: #e63c3c;
+    }
+
+    #bmi-result, #fat-rate-result {
+        font-size: 1.1em;
+        margin-top: 15px;
+        color: #444;
+    }
+
+    /* Health Tips */
+    .health-tips p {
+        font-size: 1.1em;
+        color: #555;
+        margin: 10px 0;
+    }
+
+    /* Step Tracker */
+    .step-tracker {
+        margin-top: 15px;
+        font-size: 1.2em;
+        color: #444;
+    }
+
+    .step-progress {
+        background-color: #f0f0f0;
+        height: 20px;
+        border-radius: 10px;
+        margin-top: 10px;
+        overflow: hidden;
+    }
+
+    .progress-bar {
+        background-color: #4caf50;
+        height: 100%;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+        .fitness-tool {
+            width: 48%;
+            margin-bottom: 20px;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .fitness-tool {
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        .mealmap-fitness-tools {
+            flex-direction: column;
+            align-items: center;
+        }
+    }
+</style>
+
+<script>
+    // JavaScript for BMI Calculator
+    document.querySelector('.fitness-tool form').addEventListener('submit', function (event) {
+        event.preventDefault();
+        const height = parseFloat(document.getElementById('height').value);
+        const weight = parseFloat(document.getElementById('weight').value);
+        if (height && weight) {
+            const bmi = (weight / ((height / 100) * (height / 100))).toFixed(2);
+            document.getElementById('bmi-result').textContent = `Your BMI is ${bmi}`;
+        } else {
+            document.getElementById('bmi-result').textContent = 'Please enter valid height and weight.';
+        }
+    });
+
+    // JavaScript for Fat Rate Estimator
+    document.querySelectorAll('.fitness-tool form')[1].addEventListener('submit', function (event) {
+        event.preventDefault();
+        const waist = parseFloat(document.getElementById('waist').value);
+        const hip = parseFloat(document.getElementById('hip').value);
+        if (waist && hip) {
+            const fatRate = ((waist / hip) * 100).toFixed(2);
+            document.getElementById('fat-rate-result').textContent = `Your fat rate is ${fatRate}%`;
+        } else {
+            document.getElementById('fat-rate-result').textContent = 'Please enter valid measurements.';
+        }
+    });
+</script>
+
+
+
+
+
+
+
+
+
+
+<!-- Interactive Ingredient Finder -->
+<div class="ingredient-finder">
+    <h3>Find Recipes by Ingredients</h3>
+    <p>Enter ingredients you have:</p>
+    <div class="ingredient-form">
+        <input type="text" id="ingredientInput" placeholder="e.g., Chicken, Tomato, Basil">
+        <button id="searchButton">Search Recipes</button>
+    </div>
+    <div id="recipeResults" class="recipe-results">
+        <!-- Recipes will be displayed dynamically -->
+    </div>
+</div>
+
+
+<style>
+    /* Ingredient Finder Section */
+    .ingredient-finder {
+        background: #f9f9f9;
+        border: 1px solid #ddd;
+        border-radius: 10px;
+        padding: 25px;
+        width: 90%;
+        max-width: 600px;
+        margin: 50px auto;
+        text-align: center;
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .ingredient-finder h3 {
+        margin-bottom: 15px;
+        font-size: 1.5rem;
+        color: #333;
+    }
+
+    .ingredient-finder p {
+        font-size: 1rem;
+        color: #555;
+        margin-bottom: 20px;
+    }
+
+    .ingredient-form {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+    }
+
+    .ingredient-form input {
+        flex: 1;
+        padding: 12px;
+        font-size: 1rem;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+    }
+
+    .ingredient-form button {
+        padding: 12px 20px;
+        background-color: #f76c6c;
+        color: white;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 1rem;
+        transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+    .ingredient-form button:hover {
+        background-color: #d65a5a;
+        transform: scale(1.1);
+    }
+
+    .recipe-results {
+        margin-top: 20px;
+        font-size: 1rem;
+        color: #333;
+    }
+
+    /* Seasonal Recipe Countdown Section */
+    .seasonal-recipe-countdown {
+        background: #ffefd5;
+        border: 1px solid #ddd;
+        border-radius: 10px;
+        padding: 25px;
+        width: 90%;
+        max-width: 600px;
+        margin: 30px auto;
+        text-align: center;
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .seasonal-recipe-countdown h3 {
+        margin-bottom: 15px;
+        font-size: 1.5rem;
+        color: #333;
+    }
+
+    .countdown-timer {
+        font-size: 1.2rem;
+        color: #555;
+        margin-top: 20px;
+        font-weight: bold;
+    }
+
+    /* Responsive Adjustments */
+    @media (max-width: 768px) {
+        .ingredient-finder, .seasonal-recipe-countdown {
+            padding: 20px;
+        }
+
+        .ingredient-form {
+            flex-direction: column;
+        }
+
+        .ingredient-form button {
+            width: 100%;
+        }
+    }
+</style>
+
+<!-- JavaScript -->
+<script>
+    // Ingredient Finder functionality
+    const searchButton = document.getElementById("searchButton");
+    const recipeResults = document.getElementById("recipeResults");
+
+    searchButton.addEventListener("click", () => {
+        const ingredients = document.getElementById("ingredientInput").value;
+        if (ingredients) {
+            recipeResults.innerHTML = `Searching recipes with: <strong>${ingredients}</strong>...`;
+            // Mock recipe search (replace with actual API or database logic)
+            setTimeout(() => {
+                recipeResults.innerHTML = `
+                    <ul>
+                        <li><strong>Recipe 1:</strong> Grilled Chicken Salad</li>
+                        <li><strong>Recipe 2:</strong> Tomato Basil Soup</li>
+                        <li><strong>Recipe 3:</strong> Pasta Primavera</li>
+                    </ul>
+                `;
+            }, 1000);
+        } else {
+            recipeResults.innerHTML = `<span style="color:red;">Please enter ingredients!</span>`;
+        }
+    });
+
+  
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- Why Choose MealMap? Section -->
+<div class="mealmap-choose">
+    <div class="container">
+        <h2>Why Choose MealMap?</h2>
+        <div class="features">
+            <!-- Feature 1: Easy Meal Planning -->
+            <div class="feature-item">
+                <img src="Meal+1.jpg" alt="Easy Meal Planning" class="feature-icon">
+                <h3>Easy Meal Planning</h3>
+                <p>Plan your meals effortlessly with our simple-to-use tools, tailored to your dietary preferences.</p>
+            </div>
+            <!-- Feature 2: Balanced Nutrition Recipes -->
+            <div class="feature-item">
+                <img src="Meal+2.jpg" alt="Balanced Nutrition Recipes" class="feature-icon">
+                <h3>Balanced Nutrition Recipes</h3>
+                <p>Access a wide variety of recipes that ensure balanced nutrition for a healthy lifestyle.</p>
+            </div>
+            <!-- Feature 3: Fitness and Wellness Integration -->
+            <div class="feature-item">
+                <img src="Meal+3.jpg" alt="Fitness and Wellness Integration" class="feature-icon">
+                <h3>Fitness and Wellness Integration</h3>
+                <p>Track your fitness and wellness goals alongside your meals for a holistic approach to health.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- CSS for the Section -->
+<style>
+    /* Unique CSS for Why Choose MealMap? Section */
+    .mealmap-choose {
+        background-color: #f4f4f4;
+        padding: 50px 0;
+    }
+
+    .mealmap-choose .container {
+        width: 90%;
+        max-width: 1200px;
+        margin: 0 auto;
+        text-align: center;
+    }
+
+    .mealmap-choose h2 {
+        font-size: 2.5em;
+        margin-bottom: 30px;
+        color: #333;
+    }
+
+    .mealmap-choose .features {
+        display: flex;
+        justify-content: space-around;
+        flex-wrap: wrap;
+        gap: 30px;
+    }
+
+    .mealmap-choose .feature-item {
+        width: 30%;
+        padding: 20px;
+        background-color: white;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .mealmap-choose .feature-item:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    .mealmap-choose .feature-icon {
+        width: 80px;
+        height: 80px;
+        margin-bottom: 15px;
+    }
+
+    .mealmap-choose .feature-item h3 {
+        font-size: 1.5em;
+        color: #333;
+        margin-bottom: 10px;
+    }
+
+    .mealmap-choose .feature-item p {
+        font-size: 1em;
+        color: #666;
+    }
+
+    /* Responsive Adjustments */
+    @media (max-width: 768px) {
+        .mealmap-choose .features {
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .mealmap-choose .feature-item {
+            width: 80%;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .mealmap-choose h2 {
+            font-size: 2em;
+        }
+
+        .mealmap-choose .feature-item {
+            width: 90%;
+        }
+    }
+</style>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- Combined Section: Seasonal Recipe Countdown and Cooking Tips -->
+<div class="seasonal-tips-container">
+    <!-- Seasonal Recipe Countdown -->
+    <div class="seasonal-recipe">
+        <h3>Seasonal Recipe Countdown</h3>
+        <div class="countdown-timer">
+            <p><strong>Winter Special:</strong> Warm Pumpkin Soup!</p>
+            <p>Time Remaining: <span id="countdown">Loading...</span></p>
+        </div>
+    </div>
+
+    <!-- Cooking Tips and Tricks -->
+    <div class="cooking-tips">
+        <h3>Cooking Tips and Tricks</h3>
+        <ul class="tips-list">
+            <li>
+                <strong>1. Prep Ingredients Ahead:</strong> Save time by chopping and measuring ingredients before starting.
+            </li>
+            <li>
+                <strong>2. Use Sharp Knives:</strong> A sharp knife makes cutting easier and safer.
+            </li>
+            <li>
+                <strong>3. Clean as You Cook:</strong> Minimize mess by cleaning tools and surfaces while cooking.
+            </li>
+        </ul>
+    </div>
+</div>
+
+<!-- CSS -->
+<style>
+    .seasonal-tips-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 20px;
+        padding: 20px;
+        background-color: #f9f9f9;
+        border-radius: 10px;
+        margin: 40px auto;
+        width: 90%;
+        max-width: 1200px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .seasonal-recipe, .cooking-tips {
+        flex: 1;
+        background-color: white;
+        border: 1px solid #ddd;
+        border-radius: 10px;
+        padding: 20px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .seasonal-recipe h3, .cooking-tips h3 {
+        font-size: 1.8rem;
+        color: #f76c6c;
+        margin-bottom: 15px;
+        text-align: center;
+    }
+
+    /* Seasonal Recipe Countdown */
+    .countdown-timer {
+        font-size: 1rem;
+        color: #333;
+        text-align: center;
+        padding: 10px;
+        border-top: 1px solid #eee;
+        margin-top: 15px;
+    }
+
+    .countdown-timer p {
+        margin: 10px 0;
+    }
+
+    /* Cooking Tips */
+    .tips-list {
+        list-style: none;
+        padding: 0;
+        font-size: 1rem;
+        color: #333;
+    }
+
+    .tips-list li {
+        margin-bottom: 10px;
+        padding: 10px;
+        border-bottom: 1px solid #eee;
+    }
+
+    .tips-list li:last-child {
+        border-bottom: none;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+        .seasonal-tips-container {
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .seasonal-recipe, .cooking-tips {
+            width: 100%;
+        }
+    }
+</style>
+
+<!-- JavaScript -->
+<script>
+    // Countdown Timer for Seasonal Recipe
+    function startCountdown(endDate) {
+        const countdownElement = document.getElementById('countdown');
+        function updateCountdown() {
+            const now = new Date();
+            const timeRemaining = endDate - now;
+            if (timeRemaining <= 0) {
+                countdownElement.textContent = "Time's up! Check out the recipe.";
+                clearInterval(timerInterval);
+                return;
+            }
+            const days = Math.floor(timeRemaining / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((timeRemaining % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((timeRemaining % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((timeRemaining % (1000 * 60)) / 1000);
+            countdownElement.textContent = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+        }
+
+        updateCountdown(); // Initialize
+        const timerInterval = setInterval(updateCountdown, 1000);
+    }
+
+    // Set countdown to a specific date (e.g., end of winter special)
+    const endDate = new Date("2024-12-31T23:59:59");
+    startCountdown(endDate);
+</script>
+
+
+
+
+
+<!-- Recipe Recommendation Carousel -->
+<div class="recipe-recommendation-carousel">
+    <h3>AI-Recommended Recipes</h3>
+    <div class="carousel-wrapper">
+        <button class="carousel-btn prev-btn">❮</button>
+        <div class="carousel-track">
+            <div class="carousel-item">
+                <img src="Meal+1.jpg" alt="Recipe 1">
+                <p>Spicy Chicken Curry</p>
+            </div>
+            <div class="carousel-item">
+                <img src="Meal+1.jpg" alt="Recipe 2">
+                <p>Vegetarian Pasta</p>
+            </div>
+            <div class="carousel-item">
+                <img src="Meal+1.jpg" alt="Recipe 3">
+                <p>Quick Avocado Toast</p>
+            </div>
+            <div class="carousel-item">
+                <img src="Meal+1.jpg" alt="Recipe 4">
+                <p>Healthy Smoothie Bowl</p>
+            </div>
+        </div>
+        <button class="carousel-btn next-btn">❯</button>
+    </div>
+</div>
+
+<!-- CSS -->
+<style>
+    .recipe-recommendation-carousel {
+        width: 90%;
+        max-width: 1200px;
+        margin: 40px auto;
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        text-align: center;
+    }
+
+    .recipe-recommendation-carousel h3 {
+        font-size: 1.8rem;
+        color: #f76c6c;
+        margin-bottom: 20px;
+    }
+
+    .carousel-wrapper {
+        display: flex;
+        align-items: center;
+        position: relative;
+    }
+
+    .carousel-track {
+        display: flex;
+        gap: 15px;
+        overflow: hidden;
+        scroll-behavior: smooth;
+        width: calc(100% - 100px); /* Adjust width to exclude button space */
+    }
+
+    .carousel-item {
+        flex: 0 0 auto;
+        width: 200px;
+        text-align: center;
+        border: 1px solid #ddd;
+        border-radius: 10px;
+        padding: 15px;
+        background-color: #f9f9f9;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .carousel-item img {
+        width: 100%;
+        height: 150px;
+        border-radius: 10px;
+        object-fit: cover;
+        margin-bottom: 10px;
+    }
+
+    .carousel-item p {
+        font-size: 1rem;
+        color: #333;
+    }
+
+    .carousel-btn {
+        width: 40px;
+        height: 40px;
+        background-color: #f76c6c;
+        color: white;
+        border: none;
+        border-radius: 50%;
+        font-size: 1.5rem;
+        cursor: pointer;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        position: relative;
+    }
+
+    .carousel-btn:hover {
+        background-color: #d65a5a;
+    }
+
+    .prev-btn {
+        position: absolute;
+        left: -50px;
+    }
+
+    .next-btn {
+        position: absolute;
+        right: -50px;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+        .carousel-item {
+            width: 150px;
+        }
+
+        .carousel-btn {
+            width: 30px;
+            height: 30px;
+            font-size: 1.2rem;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .carousel-item {
+            width: 120px;
+        }
+
+        .carousel-btn {
+            display: none;
+        }
+    }
+</style>
+
+<!-- JavaScript -->
+<script>
+    const track = document.querySelector('.carousel-track');
+    const nextBtn = document.querySelector('.next-btn');
+    const prevBtn = document.querySelector('.prev-btn');
+
+    // Scroll to the next set of items
+    nextBtn.addEventListener('click', () => {
+        track.scrollBy({ left: 200, behavior: 'smooth' });
+    });
+
+    // Scroll to the previous set of items
+    prevBtn.addEventListener('click', () => {
+        track.scrollBy({ left: -200, behavior: 'smooth' });
+    });
+
+    // Infinite scroll simulation
+    function autoScrollCarousel() {
+        track.scrollBy({ left: 200, behavior: 'smooth' });
+        if (track.scrollLeft + track.offsetWidth >= track.scrollWidth) {
+            track.scrollTo({ left: 0, behavior: 'smooth' });
+        }
+    }
+    setInterval(autoScrollCarousel, 5000); // Auto-scroll every 5 seconds
+</script>
+
+
+
